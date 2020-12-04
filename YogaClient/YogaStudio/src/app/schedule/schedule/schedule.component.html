@@ -1,0 +1,82 @@
+<app-searchtab (weekEmitter)='onSelectedWeek($event)' (monthEmitter)='onSelectedMonth($event)'></app-searchtab>
+
+<ng-containter *ngIf='selectedWeek$ | async'>
+    <div class="schedule">
+        <table class="weekClasses">
+            <thead>
+                <tr>
+                    <th>Sunday <br> {{getDate(0) | date: 'd/M/yy'}}</th>
+                    <th>Monday <br> {{getDate(1) | date: 'd/M/yy'}}</th>
+                    <th>Tuedsay <br> {{getDate(2) |date: 'd/M/yy'}}</th>
+                    <th>Wedensay <br> {{getDate(3)| date: 'd/M/yy'}}</th>
+                    <th>Thursday <br> {{getDate(4)|date: 'd/M/yy'}}</th>
+                    <th>Friday <br>{{getDate(5)| date: 'd/M/yy'}}</th> 
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                        <td style="vertical-align: top; padding-top: 0px;" *ngFor='let day of (selectedWeek$ | async).classesByDays; let i= index'>
+                            <button  class="btn btn-primary" style="margin-top: 12px; padding: 5px;" (click)="selectedDay=i; openClassEditWindow=true; updateClasss=false;">Add Class</button>
+                            <div class="yogaclass" *ngFor='let class of day'>
+                                <button style="background-color: red; color: white; border-radius: 8px 2px 2px 2px;" class="deleteClassBtn" (click)='deleteClass(class.id)'>X</button>
+                                {{class.startingTime| date:'HH:mm'}} - {{class.endTime|date:'HH:mm'}} <br> <br>
+                                <button class="btn btn-secondary" style="padding: 5px 10px; margin-bottom: 10px;" (click)='getClassDetails(class.id)'>Edit</button>
+                            </div>
+        
+                        </td>
+                </tr>
+                
+            </tbody>
+        
+    </table>
+
+    <div class="modal fade" id="itemModal" [ngClass]="{'show': openClassEditWindow}" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+                <form [formGroup]='newClassForm' (ngSubmit)='addOrUpdateClassToWeek(getSelectedWeek().id,selectedDay)'>
+                    <div class="classTime" style="padding-bottom: 10px; text-align: center;">
+                    <label for="startTimeText">Start: </label>
+                    <input style="margin-left: 5px;" type="time" class="startHour" min='07:00' max='21:00' formControlName='startHour'> 
+        
+                    <label style="margin-left: 12px" >End: </label>
+                    <input style="margin-left: 5px;" type="time" class="endHour" min='07:00' max='23:00' formControlName='endHour' > 
+                    </div>
+                    
+                
+                    <label for='studentsList'><strong>Select Students:</strong></label>
+                    <div style='margin-top: 5px; margin-bottom: 12px;' class="students">
+                        <select  multiple class="newClassStudents" formControlName='studentsParticipated'>
+                            <option  *ngFor="let student of (studentsList$ | async)" value='{{student.id}}'>{{student.name}}</option>
+                        </select>
+                
+                        <button class='addBtn' style="margin-left: 12px;" type="submit">Add</button>
+    
+                    </div>
+                </form>
+                <div style="margin-bottom: 20px;">
+                    <label><strong><span *ngIf='selectedClass$ | async'>{{(selectedClass$|async).studentsParticipated.length}}</span> Participants: </strong> </label>
+                </div>
+                <div class="partcipantsContainer" [ngClass]="{'hideParticipants': !(selectedClass$|async)}" style="max-height: 200px; overflow: auto;">
+        
+                    <table class='table' id='participants'  *ngIf='selectedClass$ | async' style="text-align: left;">
+                        <tr  *ngFor='let participation of (selectedClass$|async).studentsParticipated'>
+                            <td>{{participation.person?.name}}</td>
+                            <td><button  (click)='deleteStudentFromClass(participation.id)'>X</button></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button"  (click)="closeWindow()" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+        
+                    
+    </div>
+
+
+</ng-containter>

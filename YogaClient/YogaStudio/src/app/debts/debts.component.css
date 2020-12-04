@@ -1,0 +1,13 @@
+.table .thead-dark th {
+    color: black;
+    background-color:white;
+    border-color: #454d55;
+    width: 200px;
+}
+
+
+#maintable{
+    width: 80%;
+    position: relative;
+    left: 100px;
+}

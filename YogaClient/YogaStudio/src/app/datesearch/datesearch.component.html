@@ -1,0 +1,22 @@
+<div class="monthyear" style="padding-top: 30px; padding-left: 100px; padding-bottom: 30px;">
+  <label>Select month</label>
+    
+  <div class="selectmonth" style="margin-top:12px; ">
+    <select class="custom-select" id="inputGroupSelect02" [(ngModel)]='selectedYear' (change)='onYearSelected()'>
+      <option *ngFor='let year of years' value='{{year}}'>{{year}}</option>
+     
+    </select> 
+
+    <select class="custom-select" id="inputGroupSelect03" [(ngModel)]='selectedMonth' style="margin-left:20px">
+      <option *ngFor='let month of months' value='{{month}}'>{{month}}</option>
+     
+    </select>
+
+    <button type="button" class="btn btn-secondary" style="margin-left: 20px;" (click)='changeMonthAndYear()'>Select</button>
+
+
+    <label class='paidlbl' style='margin-left: 300px;'>Total Paid: {{totalPaid}}</label>
+    <label class='debtlbl' style='margin-left: 100px;'>Total Debt: {{totalDebt}}</label>
+  </div>
+
+</div>

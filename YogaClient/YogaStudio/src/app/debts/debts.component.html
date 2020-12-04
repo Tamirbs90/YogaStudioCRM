@@ -1,0 +1,42 @@
+<table class="table" id='maintable' style="margin-top: 10px;">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Debt</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor='let person of persons'>
+        <th scope="row">{{person.id}}</th>
+        <td>{{person.name}}</td>
+        <td>{{person.phone}}</td>
+        <td>{{person.debt}}</td>
+        <td class="classes">
+            <button class="btn btn-primary" id='showclassesbtn' type="button" (click)='setShowClassesId(person.id)'>Details</button>
+              <div class="showclasses" *ngIf='showClassesId==person.id'>
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Paid</th>
+                            <th scope="col">Debt</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor='let class of person.studentClasses'>
+                            <td>{{class.date}}</td>
+                            <td>{{class.paid}}</td>
+                            <td>{{class.debt}}</td>
+                    
+                        
+                          </tr> 
+
+                        </tbody>
+                      </table>
+              </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>

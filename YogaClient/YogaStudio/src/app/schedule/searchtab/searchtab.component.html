@@ -1,0 +1,17 @@
+<div class="searchTab" style="padding: 30px">
+    <div class="control">
+        <div>
+            <label for="monthSelect">Select Month:</label>
+        </div>
+        <select id="monthSelect" class='form-control' [(ngModel)]='selectedMonthId'  (change)='onMonthSelected()' >
+            <option>Please select month</option> 
+            <option *ngFor='let month of months' value='{{month.id}}'> {{month.year}} {{month.monthName}}</option>
+        </select>
+        <select  id="weekSelect" class= 'form-control' [disabled]='!isSeletedMonthDefined()' (change)='onWeekChange($event)'>
+            <option>Please select Week</option>
+            <option *ngFor='let week of weeks' value='{{week.id}}'>{{week.startingDate | date: 'd/M/yy'}} - {{week.endDate | date: 'd/M/yy'}}</option>
+        </select>
+        <button class="btn btn-secondary" (click)='onWeekSelected()'>Select</button>
+    </div>
+
+</div>

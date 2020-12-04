@@ -10,5 +10,7 @@ namespace YogaStudio.Repositories
     {
         List<string> GetMonths(string year);
         List<string> GetYears();
+
+        List<Month> GetAll();
     }
 }

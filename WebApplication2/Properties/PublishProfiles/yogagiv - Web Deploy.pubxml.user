@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAs9wDvQod+U6p844m+JE7hAAAAAACAAAAAAAQZgAAAAEAACAAAABbBeJkRzWJOGVbOjp3EO1M4nlOKpy/vsj40nEls8YdZQAAAAAOgAAAAAIAACAAAAA8TprgwYuG72QnjOnHF9txFw7XLBAAT1UPwFJ3bMG+WoAAAAAA/stbvJIv8qc7XUUcnkl9GwZlBJUKZC1/8JxtP544tW/oXyx4L4shStSZ6sl70G8s8WHxN8wBJyvXhk6tEWF4ZYnjwNSVOA6CytW0DO8Ddc0tHZro86P2dMBN/kk8aBRXqbyFSsj07JFvCbUI8usSnOeAv6Kr0O6/ZEeZ4CX6TEAAAAD4OpV78oWCZV4SnJkfz/H16E24cXVYOlr8ncViNOpg9FxqDx/YoO93F9ygT5uRIeV9z46DvaFOExZvz5w1uVmi</EncryptedPassword>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="YogaDbConnection">
+      <Value>Server=localhost%3b Database=yogaStudio%3b Uid=tamirbe%3b Pwd=pablito201508413</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="YogaStudio.Data.PersonContext">
+      <Value>Server=localhost%3b Database=yogaStudio%3b Uid=tamirbe%3b Pwd=pablito201508413</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>

@@ -18,22 +18,19 @@ namespace YogaStudio.Models
         {
             Id = id;
             Name = name;
-            Classes = classes;
+            StudentClasses = classes;
         }
 
-
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
         public string Name { get; set; }
         public string Phone { get; set; }
-        
         public string Birthday { get; set; }
-        
         public int TotalPaid { get; set; }
         public int Debt { get; set; }
         public bool IsActive { get; set; }
         public Level Level { get; set; }
 
-        public List<ClassParticipated> Classes { get; set; } = new List<ClassParticipated>();
+        public List<ClassParticipated> StudentClasses { get; set; } = new List<ClassParticipated>();
     }
 }

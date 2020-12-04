@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "cG4Kw1ZSHgo0D8nMA8y+5mXhV4cQhoD17AY7GeajhJS7nXRcTGdSdfgiSQAKB/qFKfKARduLbk6kO8iTS2fjzw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\tamir\\source\\repos\\WebApplication2\\YogaClient\\YogaClient.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\tamir\\.nuget\\packages\\microsoft.typescript.msbuild\\4.0.3\\microsoft.typescript.msbuild.4.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

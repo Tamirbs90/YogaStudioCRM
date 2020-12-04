@@ -8,6 +8,7 @@ namespace YogaStudio.Repositories
 {
     public interface IPersonRepository
     {
+        List<Person> GetAll();
         Person AddPerson(Person person);
         Person AddClassToPerson(int id, ClassParticipated classParticipated);
         Person UpdatePerson(Person person);

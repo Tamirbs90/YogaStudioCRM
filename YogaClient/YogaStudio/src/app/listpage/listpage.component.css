@@ -1,0 +1,18 @@
+
+
+.addclassform, .showclasses{
+
+    margin-top: 10px;
+}
+
+#maintable{
+    width: 80%;
+    position: relative;
+    left: 100px;
+}
+
+.table .thead-dark th {
+    color: black;
+    background-color:white;
+    border-color: #454d55;
+}

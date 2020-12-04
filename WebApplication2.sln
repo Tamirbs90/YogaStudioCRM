@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30225.117
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YogaStudio", "WebApplication2\YogaStudio.csproj", "{6B02BFB1-2AE4-46F5-B16E-360B4FEB4FA2}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YogaClient", "YogaClient\YogaClient.csproj", "{C1045AEF-E071-4C48-8497-B02B9ADD60AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{6B02BFB1-2AE4-46F5-B16E-360B4FEB4FA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B02BFB1-2AE4-46F5-B16E-360B4FEB4FA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B02BFB1-2AE4-46F5-B16E-360B4FEB4FA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1045AEF-E071-4C48-8497-B02B9ADD60AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1045AEF-E071-4C48-8497-B02B9ADD60AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1045AEF-E071-4C48-8497-B02B9ADD60AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1045AEF-E071-4C48-8497-B02B9ADD60AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

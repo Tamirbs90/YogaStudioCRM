@@ -1,0 +1,85 @@
+table{
+    width: 80%;
+    margin:auto;
+    text-align: center;
+}
+.participants{
+    overflow:auto;
+    margin-top: 5px;
+}
+
+#itemModal.show{
+    display: block;
+}
+
+.addOrEditYogaClass{
+
+    padding: 10px;
+    width: 20%;
+    height: 50%;
+
+    position: absolute;
+    left:30%;
+    top: 30%;
+    border: solid 1px;
+    background-color: white;
+
+}
+.addOrEditContent{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.addOrEditYogaClass footer{
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+
+.addOrEditYogaClass input{
+    width: 30px;
+}
+
+.yogaclass{
+    border: solid 1px;
+    margin-top: 12px;
+    position: relative;
+    border-radius: 8px;
+}
+
+.deleteClassBtn{
+    position: absolute;
+    font-size: 10px;
+    text-align: center;
+    top: 0px;
+    left: 0px;
+    size: 20px;
+}
+
+.hideParticipants{
+    display: none;
+}
+
+.addBtn{
+    position: relative;
+    top:-5px;
+}
+
+.newYogaClass input{
+    width: 40px;
+}
+
+.newClassStudents{
+    max-height: 200px;
+    width: 150px;
+}
+
+.weekClasses th{
+    border-radius: 15px 15px 0px 0px;
+    margin-right: 10px;
+    background-color: darkgray;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+

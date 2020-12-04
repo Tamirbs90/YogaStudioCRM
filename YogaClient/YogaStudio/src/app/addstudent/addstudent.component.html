@@ -1,0 +1,44 @@
+
+<form [formGroup]='addForm' (ngSubmit)='addOrUpdate()' style="margin-top: 10px;">
+      <div class="control">
+        <label for="name" class="name">Name</label>
+        <input type="text" class="form-control"  formControlName='name'> 
+        <div class="error" *ngIf="PersonName.touched && PersonName.invalid">Name is required</div>
+
+      </div> 
+      <div class="control">
+        <label for="phone" class="phone">Phone</label>
+        <input type="text" class="form-control" formControlName='phone'> 
+        <div class="error" *ngIf="PersonPhone.touched && PersonPhone.invalid">Phone is required</div>
+
+      </div> 
+      <div class="control">
+        <label class="bdaylbl">Birthday</label><br>
+        <select formControlName='bdayDay' id='dayselect' aria-placeholder="Day" style='margin-top:5px; width:70px;'>
+          <option *ngFor= 'let day of birthdayDays' value='{{day}}'>{{day}}</option>
+          
+        </select> 
+        <select  id='monthselect' formControlName='bdayMonth' aria-placeholder="Month" style="margin-left: 12px; width: 70px;">
+          <option *ngFor= 'let month of months' value='{{month}}'>{{month}}</option>
+          
+        </select> 
+      </div> 
+
+      <div class="control">
+        <label for="level">Level</label>
+        <select class="form-control" formControlName='level' aria-placeholder="Level">
+            <option value="0">Begginer</option>
+            <option value="1">Intermediate</option>
+            <option value="2">Advanced</option>
+        </select>
+      </div>
+
+      <div class="control" style="margin-top: 20px;">
+        <label for='isActive'>Active Student</label>
+        <input type="checkbox" name="isActive" id="isactive" formControlName='isActive' style="margin-left: 10px; size:50px">
+      </div>
+
+      <div class="control" id='savebtn' style="margin-top: 20px;">
+        <button type="submit" class="btn btn-primary" [disabled]="PersonName.invalid || PersonPhone.invalid" >Save</button>
+      </div>
+  </form>

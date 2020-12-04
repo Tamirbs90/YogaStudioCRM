@@ -32,6 +32,12 @@ namespace YogaStudio.Controllers
             return Ok(classesRepository.AddClassToStudent(id, classToAdd));
         }
 
+        [HttpPut("update")]
+        public ActionResult<ClassParticipated> UpdateClass(ClassParticipated participation)
+        {
+            return Ok(classesRepository.UpdateParticipation(participation));
+        }
+
         [HttpDelete("{id}")]
         public ActionResult<Person> RemoveClassFromStudent(int id)
         {

@@ -25,30 +25,37 @@ namespace YogaStudio.Repositories
             var monthToChange = personContext.Months.
                 Where(m => m.MonthName.Equals(currentMonth) && m.Year.Equals(currentYear)).
                 FirstOrDefault();
-            personToChange.Classes.Add(classParticipated);
-            monthToChange.Classes.Add(classParticipated);
+            personToChange.StudentClasses.Add(classParticipated);
+            monthToChange.ClassesInMonth.Add(classParticipated);
             personToChange.TotalPaid += classParticipated.Paid;
             personToChange.Debt += classParticipated.Debt;
             personContext.SaveChanges();
             return personToChange;
         }
 
+        public ClassParticipated UpdateParticipation(ClassParticipated participation)
+        {
+            personContext.Entry(participation).State = EntityState.Modified;
+            personContext.SaveChanges();
+            return participation;
+        }
+
         public Person DeleteClassFromStudent(int classId)
         {
-            var classToRemove = personContext.Classes.FirstOrDefault(c => c.Id == classId);
+            var classToRemove = personContext.ClassesPartipciations.FirstOrDefault(c => c.Id == classId);
             var personToChange = personContext.Persons.FirstOrDefault(p => p.Id == classToRemove.PersonId);
             personToChange.TotalPaid -= classToRemove.Paid;
             personToChange.Debt -= classToRemove.Debt;
-            personContext.Classes.Remove(classToRemove);
+            personContext.ClassesPartipciations.Remove(classToRemove);
             personContext.SaveChanges();
             return personToChange;
         }
 
         public List<Person> ShowClassesWithDebts()
         {
-            if (!personContext.Classes.Any())
+            if (!personContext.ClassesPartipciations.Any())
                 return null;
-            var classes = personContext.Classes.ToList();
+            var classes = personContext.ClassesPartipciations.ToList();
             Dictionary<int, Person> personList = new Dictionary<int, Person>();
             foreach (var classPerPerson in classes)
             {
@@ -66,10 +73,10 @@ namespace YogaStudio.Repositories
                     });
                 }
 
-                personList[classPerPerson.PersonId].Classes.Add(classPerPerson);
+                personList[classPerPerson.PersonId].StudentClasses.Add(classPerPerson);
             }
 
-            var listToReturn = personList.Values.AsQueryable().Include(p => p.Classes).ToList();
+            var listToReturn = personList.Values.AsQueryable().Include(p => p.StudentClasses).ToList();
             listToReturn.OrderBy(p => p.Id);
             return listToReturn;
         }

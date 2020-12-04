@@ -20,6 +20,15 @@ namespace YogaStudio.Controllers
             this.monthRepository = monthRepository;
         }
 
+
+        [HttpGet("all")]
+        public ActionResult<List<Month>> GetAll()
+        {
+            return monthRepository.GetAll();
+        }
+
+        
+        
         [HttpGet]
         public ActionResult<List<string>> GetMonths(string year)
         {

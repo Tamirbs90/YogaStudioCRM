@@ -22,6 +22,14 @@ namespace YogaStudio.Repositories
             StudentsPerMonth = new SortedDictionary<int, Person>();
         }
 
+        public List<Person> GetAll()
+        {
+            var students = personContext.Persons.ToList();
+            if (students.Count == 0)
+                return null;
+            return students;
+        }
+
         public Person AddPerson(Person person)
         {
             personContext.Persons.Add(person);
@@ -37,8 +45,8 @@ namespace YogaStudio.Repositories
             var monthToChange = personContext.Months.
                 Where(m => m.MonthName.Equals(currentMonth) && m.Year.Equals(currentYear)).
                 FirstOrDefault();
-            personToChange.Classes.Add(classParticipated);
-            monthToChange.Classes.Add(classParticipated);
+            personToChange.StudentClasses.Add(classParticipated);
+            monthToChange.ClassesInMonth.Add(classParticipated);
             personContext.SaveChanges();
             return personToChange;
         }
@@ -52,7 +60,7 @@ namespace YogaStudio.Repositories
 
         public List<Person> FindPersonByName(string name)
         {
-            return personContext.Persons.Where(p => p.Name.Equals(name)).Include(p => p.Classes).ToList();
+            return personContext.Persons.Where(p => p.Name.Equals(name)).Include(p => p.StudentClasses).ToList();
         }
 
         public object FindStudentsByMonth(string month, string year)
@@ -61,10 +69,10 @@ namespace YogaStudio.Repositories
             int totalPaid = 0, totalDebt = 0;
             var selectedMonth = personContext.Months.
                 Where(m => m.MonthName.Equals(month) && m.Year.Equals(year)).
-                Include(m => m.Classes).FirstOrDefault();
-            if (selectedMonth != null && selectedMonth.Classes.Any())
+                Include(m => m.ClassesInMonth).FirstOrDefault();
+            if (selectedMonth != null && selectedMonth.ClassesInMonth.Any())
             {
-                var classes = selectedMonth.Classes.ToList();
+                var classes = selectedMonth.ClassesInMonth.ToList();
                 foreach (var classPerPerson in classes)
                 {
                     if (!StudentsPerMonth.ContainsKey(classPerPerson.PersonId))
@@ -80,7 +88,7 @@ namespace YogaStudio.Repositories
                         });
                     }
 
-                    StudentsPerMonth[classPerPerson.PersonId].Classes.Add(classPerPerson);
+                    StudentsPerMonth[classPerPerson.PersonId].StudentClasses.Add(classPerPerson);
                     StudentsPerMonth[classPerPerson.PersonId].TotalPaid += classPerPerson.Paid;
                     StudentsPerMonth[classPerPerson.PersonId].Debt += classPerPerson.Debt;
                     totalPaid += classPerPerson.Paid;
@@ -103,7 +111,7 @@ namespace YogaStudio.Repositories
                     });
             }
 
-            var totalStudentsList = StudentsPerMonth.Values.AsQueryable().Include(p => p.Classes).ToList();
+            var totalStudentsList = StudentsPerMonth.Values.AsQueryable().Include(p => p.StudentClasses).ToList();
             return new { StudentsList = totalStudentsList, TotalPaid = totalPaid, TotalDebt = totalDebt };
         }
     }

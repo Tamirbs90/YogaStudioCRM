@@ -27,6 +27,15 @@ namespace YogaStudio.Controllers
             this.personRepository = personRepository;
         }
 
+        [HttpGet("all")]
+        public ActionResult<List<Person>> GetAll()
+        {
+            var studentsList = personRepository.GetAll();
+            if (studentsList == null)
+                return NotFound();
+            return Ok(studentsList);
+        }
+
         [HttpPost("addperson")]
         public ActionResult<Person> AddPerson(Person person)
         {

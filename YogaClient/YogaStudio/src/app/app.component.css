@@ -1,0 +1,10 @@
+.welcome{
+    text-align: center;
+    margin-top: 10%;
+}
+
+.container{
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+}

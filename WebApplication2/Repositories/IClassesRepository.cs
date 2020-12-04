@@ -11,6 +11,8 @@ namespace YogaStudio.Repositories
         Person AddClassToStudent(int id, ClassParticipated classParticipated);
         Person DeleteClassFromStudent(int classId);
 
+        ClassParticipated UpdateParticipation(ClassParticipated participation);
+
         List<Person> ShowClassesWithDebts();
     }
 }

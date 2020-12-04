@@ -1,0 +1,84 @@
+<app-datesearch [totalPaid]='totalPaid' [totalDebt]='totalDebt' (yearChanged)='onYearChanged($event)' (monthChanged)='onMonthChanged($event)'></app-datesearch>
+
+<table class="table"  id='maintable' style="margin-top: 10px;">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Paid</th>
+        <th scope="col">Debt</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor='let person of persons'>
+        <th scope="row">{{person.id}}</th>
+        <td>{{person.name}}</td>
+        <td>{{person.phone}}</td>
+        <td>{{person.totalPaid}}</td>
+        <td>{{person.debt}}</td>
+        <td class="classes">
+            <button class="btn btn-primary" id='showclassesbtn' type="button" (click)='setShowClassesId(person.id)'>Classes</button>
+              <div class="showclasses" *ngIf='showClassesId==person.id'>
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Paid</th>
+                            <th scope="col">Debt</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor='let class of person.studentClasses'>
+                            <td>{{class.date | date: 'd/M/yy'}}</td>
+                            <td>
+                              <div class="col" style="padding-left: 0px; padding-right: 2px;">
+                                <input type="text"  #paid class="form-control"  style="width: 80px;" value='{{class.paid}}' >
+                              </div>
+                            </td>
+                            <td>
+                              <div class="col" style="padding-left: 0px; padding-right: 2px;">
+                                <input type="text" #debt class="form-control"  style="width: 80px;" value='{{class.debt}}' >
+                              </div>
+                            </td>
+                            <td>
+                              <button class="btn btn-secondary" type="button" (click)='updateParticipation(class.id, class.date,paid.value,debt.value,class.personId)' >Update</button>
+                            </td>
+                          
+                            <td><button class="btn btn-secondary" type="button" 
+                              (click)='deleteClassFromStudent(class.id)' style="size: 6px; background-color: red;">X</button></td>
+                        
+                          </tr> 
+
+                        </tbody>
+                      </table>
+              </div>
+        </td>
+        <td class="addclass">
+            <button class="btn btn-primary" type="button" (click)='setAddClassId(person.id)'> Add Class</button>
+              <div class="addclassform" *ngIf='addClassId===person.id'>
+                    <form [formGroup]='classForm' (ngSubmit)='addClassToStudent(person.id)'>
+                        <div class="row">
+                          <div class="col">
+                            <input type="date" class="form-control" value=""  formControlName='date'>
+                          </div>
+                          <div class="col" style="padding-left: 0px; padding-right: 2px;">
+                            <input type="text" class="form-control"  style="width: 80px;" placeholder="Paid" formControlName='paid'>
+                          </div>
+                          <div class="col" style="padding-left: 0px; padding-right: 2px;">
+                            <input type="text" class="form-control" style="width: 80px;" placeholder="Debt" formControlName='debt'>
+                          </div>
+                          <div class="col" style="padding-left: 0px;">
+                            <button [disabled]="ClassDate.invalid || ClassPaid.invalid || ClassDebt.invalid" type="submit" class="btn btn-secondary">Add</button>
+                          </div>
+                        </div>
+                      </form>
+              </div>
+        </td>
+        <td>
+          <button class="btn btn-primary" routerLink="/add" type="button" (click)='edit(person)'>Edit</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
