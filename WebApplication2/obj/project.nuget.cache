@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "RS00Fm2R8zBFvb9pI3bZvsvwVUDNtetGGPOgQR4/hMjpf+54sRw6L9Gu11KIXmNdDJ3riVl9z7VdQGp53X28qQ==",
+  "dgSpecHash": "cs50YQqHOH4fCYOyZEupJTyXTgF5Ep4XZMX5bXMd9jBtZX6ZHHxb3hyGCRVAqbmfj3pVbCVoxogLy4nCKaxNkQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\tamir\\source\\repos\\WebApplication2\\WebApplication2\\YogaStudio.csproj",
+  "projectFilePath": "C:\\Users\\tamir\\OneDrive\\Documents\\GitHub\\YogaStudioCRMServer\\WebApplication2\\YogaStudio.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\tamir\\.nuget\\packages\\automapper\\10.0.0\\automapper.10.0.0.nupkg.sha512",
     "C:\\Users\\tamir\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.0.1\\automapper.extensions.microsoft.dependencyinjection.8.0.1.nupkg.sha512",

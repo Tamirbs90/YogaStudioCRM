@@ -126,11 +126,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\tamir\\source\\repos\\WebApplication2\\YogaClient\\YogaClient.csproj",
+      "projectUniqueName": "C:\\Users\\tamir\\OneDrive\\Documents\\GitHub\\YogaStudioCRMServer\\YogaClient\\YogaClient.csproj",
       "projectName": "YogaClient",
-      "projectPath": "C:\\Users\\tamir\\source\\repos\\WebApplication2\\YogaClient\\YogaClient.csproj",
+      "projectPath": "C:\\Users\\tamir\\OneDrive\\Documents\\GitHub\\YogaStudioCRMServer\\YogaClient\\YogaClient.csproj",
       "packagesPath": "C:\\Users\\tamir\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\tamir\\source\\repos\\WebApplication2\\YogaClient\\obj\\",
+      "outputPath": "C:\\Users\\tamir\\OneDrive\\Documents\\GitHub\\YogaStudioCRMServer\\YogaClient\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\tamir\\AppData\\Roaming\\NuGet\\NuGet.Config",
