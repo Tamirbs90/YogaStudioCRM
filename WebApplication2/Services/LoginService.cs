@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,20 +11,22 @@ using YogaStudio.Models;
 
 namespace YogaStudio.Services
 {
-    public class LoginService : ILoginService
+    public abstract class LoginService 
     {
-        private readonly UserManager<User> usersManager;
-        private readonly SignInManager<User> signInManager;
-        private IMapper mapper;
+        protected readonly UserManager<User> usersManager;
+        protected readonly SignInManager<User> signInManager;
+        protected readonly AppSettings appSettings;
+        protected IMapper mapper;
 
-        /* public LoginService(UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper)
-         {
-             this.usersManager = userManager;
-             this.signInManager = signInManager;
-             this.mapper = mapper;
-         }*/
+        public LoginService(UserManager<User> userManager, SignInManager<User> signInManager, IOptions<AppSettings> appSettings, IMapper mapper)
+        {
+            this.usersManager = userManager;
+            this.signInManager = signInManager;
+            this.appSettings = appSettings.Value;
+            this.mapper = mapper;
+        }
 
-        public async Task<LoginSuccessModel> Login(LoginDto loginRequest)
+        public virtual async Task<LoginSuccessModel> Login(LoginDto loginRequest)
         {
             var user = await usersManager.FindByNameAsync(loginRequest.Username);
             if (user == null)
@@ -34,31 +37,33 @@ namespace YogaStudio.Services
             return new LoginSuccessModel
             {
                 DisplayName = user.FirstName,
-                Token = "will be a token"
+                Token = CreateToken(user)
             };
         }
-
-
 
         public async Task Logout()
         {
             await signInManager.SignOutAsync();
         }
 
-        public async Task<LoginSuccessModel> Register(RegisterDto registerRequest)
+        public virtual async Task<object> Register(RegisterDto registerRequest)
         {
-            var userExists = await usersManager.FindByEmailAsync(registerRequest.Email);
-            if (userExists != null)
-                return null;
             var newUser = mapper.Map<RegisterDto, User>(registerRequest);
             var result = await usersManager.CreateAsync(newUser, registerRequest.Password);
             if (!result.Succeeded)
-                return null;
+                return result.Errors.ToList();
             return new LoginSuccessModel
             {
                 DisplayName = newUser.FirstName,
-                Token = "this well be a token"
+                Token = CreateToken(newUser)
             };
         }
+
+        public virtual async Task<User> CheckIfUserExists(string username)
+        {
+            return await usersManager.FindByNameAsync(username);
+        }
+
+        public abstract string CreateToken(User user);
     }
 }

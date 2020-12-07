@@ -9,6 +9,13 @@ using YogaStudio.Repositories;
 using YogaStudio.Services;
 using YogaStudio.Mapper;
 using AutoMapper;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using YogaStudio.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace YogaStudio
 {
@@ -25,8 +32,13 @@ namespace YogaStudio
         public void ConfigureDevelopmentServices(IServiceCollection services)
         {
             services.AddDbContextPool<PersonContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PersonDbConnection")));
-            ConfigureServices(services);
             services.AddDbContext<UserDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("UserDbConnection")));
+            var builder = services.AddIdentityCore<User>();
+            builder = new IdentityBuilder(builder.UserType, builder.Services);
+            builder.AddEntityFrameworkStores<UserDbContext>();
+            builder.AddSignInManager<SignInManager<User>>();
+            builder.AddUserManager<UserManager<User>>();
+            ConfigureServices(services);
         }
 
         public void ConfigureProductionServices(IServiceCollection services)
@@ -40,13 +52,14 @@ namespace YogaStudio
         {
             services.AddControllers();
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
             services.AddAutoMapper(typeof(MapperProfiles));
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<IMonthRepository, MonthRepository>();
             services.AddScoped<IClassesRepository, ClassesRepository>();
             services.AddScoped<IRepositoriesManager,RepositoriesManager>();
             services.AddScoped<IYogaLessonService, YogaLessonService>();
-            //services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<LoginService, LoginJwtService>();
             services.AddScoped<IWeekService, WeekService>();
             services.AddCors(opt =>
             {
@@ -55,7 +68,28 @@ namespace YogaStudio
                     policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200");
                 });
             });
+
+            var key = Encoding.UTF8.GetBytes(Configuration["AppSettings:JwtSecret"]);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = false;
+                x.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ClockSkew = TimeSpan.Zero
+                };
+            });
         }
+       
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -65,8 +99,11 @@ namespace YogaStudio
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseAuthorization();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+       
 
             app.UseCors("corsPolicy");
 
