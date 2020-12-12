@@ -1,0 +1,17 @@
+.register{
+    width: 30% ;
+    margin: 5% auto;
+    border: solid 1px;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.control{
+    margin-bottom: 12px;
+}
+
+.error{
+    margin-top: 12px;
+    margin-bottom: 10px;
+    color: red;
+}

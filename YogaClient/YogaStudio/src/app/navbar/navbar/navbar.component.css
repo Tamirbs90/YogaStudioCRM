@@ -5,3 +5,8 @@ li:hover{
 li{
     padding: 15px 50px;
 }
+
+.logout{
+    position: absolute;
+    right: 12px;
+}

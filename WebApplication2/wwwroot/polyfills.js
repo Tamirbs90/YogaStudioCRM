@@ -3248,7 +3248,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\tamir\source\repos\WebApplication2\YogaClient\YogaStudio\src\polyfills.ts */"./src/polyfills.ts");
+module.exports = __webpack_require__(/*! C:\Users\tamir\OneDrive\Documents\GitHub\YogaStudioCRMServer\YogaClient\YogaStudio\src\polyfills.ts */"./src/polyfills.ts");
 
 
 /***/ })

@@ -1,3 +1,7 @@
+import { LoginSuccessModel } from 'src/app/Models/LoginSuccessModel';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { LoginService } from './../../login/login.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +11,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  loggedInUser$= new Observable<LoginSuccessModel>();
+
+  constructor(private loginService:LoginService, private router:Router) { }
 
   ngOnInit(): void {
+    this.loggedInUser$= this.loginService.loginSuceess$;
+  }
+
+  logout(){
+    this.loginService.logout().subscribe((res)=>this.router.navigateByUrl('/account/login'));
   }
 
 }

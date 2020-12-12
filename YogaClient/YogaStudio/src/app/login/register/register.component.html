@@ -1,0 +1,47 @@
+<form class='register' [formGroup]='registerForm' (ngSubmit)='register()'>
+    <div class="control">
+        <label for="username">Username:</label>
+        <input type="text" id='username' class="form-control" formControlName='userName'>
+    </div>
+    <div class="error" *ngIf= 'userName.invalid && (userName.dirty && userName.touched)'>
+        Please Enter Username
+    </div>
+    <div class="error" *ngIf='userExists.length>0'>
+        Username already exists
+    </div>
+
+    <div class="control">
+        <label for="password">Password:</label>
+        <input type="password" id='password' class="form-control" formControlName='password'>
+    </div>
+    <div class="error" *ngIf= 'password.invalid && (password.dirty && password.touched)'>
+        <div class="required" *ngIf='password.errors.required'>
+            Please Enter Password
+        </div>
+        <div class="length" *ngIf='password.errors.minlength'>
+            Password length must be at least 8 letters
+        </div>
+    </div>
+    <div class="control">
+        <label for="emailtext">Email:</label>
+        <input type="email" id='emailtext' class="form-control" formControlName='email'>
+    </div>
+    <div class="error" *ngIf= 'email.invalid && (email.dirty && email.touched)'>
+        Please enter Email
+    </div>
+    <div class="control">
+        <label for="firstName">First Name:</label>
+        <input type="text" id='firstName' class="form-control" formControlName='firstName'>
+    </div>
+    <div class="error" *ngIf= 'firstName.invalid && (firstName.dirty && firstName.touched)'>
+        Please enter first name
+    </div>
+    <div class="control">
+        <label for="lastName">Last Name:</label>
+        <input type="text" id='lastName' class="form-control" formControlName='lastName'>
+    </div>
+    <div class="error" *ngIf= 'lastName.invalid && (lastName.dirty && lastName.touched)'>
+        Please Enter last name
+    </div>
+    <button style="margin-top: 15px; width: 100%;" [disabled]='wrongInput()'>Register</button>
+</form>

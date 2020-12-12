@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { ClassesService } from './Services/classes.service';
 import { MonthService } from './Services/month.service';
 import { PersonService } from './Services/person.service';
@@ -41,7 +42,7 @@ import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
     MatAutocompleteModule,
     NgbModule,
     NgbPaginationModule, 
-    NgbAlertModule
+    NgbAlertModule,
   ],
   providers: [AddpersonService,PersonService,MonthService, ClassesService],
   bootstrap: [AppComponent]

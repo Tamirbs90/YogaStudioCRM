@@ -1,0 +1,14 @@
+<div class="loginForm">
+    <div style="text-align: center;" class="welcome"><span>Welcome To Yogagiv CRM</span></div>
+    <div class="control">
+        <input  class='form-control' type="text" placeholder="Username" [(ngModel)]="loginInfo.username">
+    </div>
+    <div style="margin-top: 12px;" class="control">
+        <input class="form-control" type="password" placeholder="Passowrd" [(ngModel)]="loginInfo.password">
+    </div>
+    <div style="margin-top: 12px;" class="error" *ngIf='errorMessage.length>0'>{{errorMessage}}</div>
+
+    <button style="margin-top: 24px; width: 100%;" (click)='login()' [disabled]='loginInfo?.username?.length==0 || loginInfo?.password?.length==0'>Log In</button>
+    <button style="margin-top: 12px; width: 100%;" routerLink='/account/register'>Register</button>
+
+</div>

@@ -9,7 +9,9 @@ const routes: Routes = [
 {path:'students',component: ListpageComponent},
 {path:'add',component: AddstudentComponent},
 {path:'debts', component:DebtsComponent},
-{path: 'schedule', component:ScheduleComponent }
+{path: 'schedule', component:ScheduleComponent },
+{path: 'account', loadChildren: ()=>import("./login/account.module").then(mod=>mod.AccountModule)},
+{path:'', redirectTo:'/account/login', pathMatch:'full'}
 ];
 
 @NgModule({
