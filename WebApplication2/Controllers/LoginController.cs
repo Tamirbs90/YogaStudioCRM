@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using YogaStudio.Services;
 using YogaStudio.Login;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace YogaStudio.Controllers
 {
@@ -29,6 +31,19 @@ namespace YogaStudio.Controllers
             return result;
         }
 
+        [HttpGet("current")]
+        [Authorize]
+        public async Task<LoginSuccessModel> GetCurrentUser()
+        {
+            var username = HttpContext?.User?.Claims?.FirstOrDefault(x => x.Type=="username")?.Value;
+            var user = await loginService.GetUserByName(username);
+            return new LoginSuccessModel
+            {
+                DisplayName = user.FirstName,
+                Token = loginService.CreateToken(user)
+            };
+        }
+
         [HttpPost("register")]
 
         public async Task<ActionResult<object>> Register(RegisterDto registerDto)
@@ -49,14 +64,5 @@ namespace YogaStudio.Controllers
             
             return BadRequest(result);
         }
-
-        [HttpGet("logout")]
-        public async Task<ActionResult> Logout()
-        {
-            await loginService.Logout();
-            return Ok();
-        }
-
-
     }
 }

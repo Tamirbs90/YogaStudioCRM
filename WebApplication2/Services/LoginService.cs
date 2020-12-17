@@ -41,11 +41,11 @@ namespace YogaStudio.Services
             };
         }
 
-        public async Task Logout()
+        public virtual async Task<User> GetUserByName(string username)
         {
-            await signInManager.SignOutAsync();
+            return await usersManager.FindByNameAsync(username);
         }
-
+        
         public virtual async Task<object> Register(RegisterDto registerRequest)
         {
             var newUser = mapper.Map<RegisterDto, User>(registerRequest);

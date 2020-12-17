@@ -24,7 +24,7 @@ namespace YogaStudio.Services
         {
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[] { new Claim("userId", user.Id.ToString()) }),
+                Subject = new ClaimsIdentity(new Claim[] { new Claim("username", user.UserName) }),
                 Expires = DateTime.UtcNow.AddHours(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(appSettings.JwtSecret)), 
                 SecurityAlgorithms.HmacSha256Signature)

@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   constructor(private loginService : LoginService, private router:Router) { }
 
   ngOnInit(): void {
-
+    this.getCurrentUser();
   }
 
   login(){
@@ -27,6 +27,16 @@ export class LoginComponent implements OnInit {
       this.errorMessage='';
     }
     ,err=>this.errorMessage=err.error);
+  }
+
+  getCurrentUser(){
+    const token= localStorage.getItem('token');
+    if(token){
+      this.loginService.getCurrentUser(token).subscribe((res)=>{
+        this.router.navigateByUrl('/students');
+      })
+    }
+  
   }
 
 }

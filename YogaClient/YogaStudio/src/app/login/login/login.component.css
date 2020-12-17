@@ -1,16 +1,46 @@
 .loginForm{
     width: 25% ;
-    margin: 5% auto;
-    border: solid 1px;
-    border-radius: 8px;
-    padding: 20px;
+    margin-top:15%;
+    z-index: 2;
 }
 
+
+.loginContainer{
+    margin:10% auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.container{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    background: url('src/assets/posturas-de-yoga.jpg');
+    background-size: cover;
+    z-index: -1;
+}
+
+
 .welcome{
-    margin-bottom: 20px;
-    font-size: 24px;
+    font-size: 48px;
+    color:whitesmoke;
+  
 }
 
 .error{
     color: red;
+}
+
+button{
+    background-color: #0d6efd;
+    border-radius: 5px;
+    height: 30px;
+    color: white;
+    cursor: pointer;
 }

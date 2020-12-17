@@ -1,4 +1,4 @@
-<nav style="position: relative;" class="navbar navbar-expand-lg navbar-light bg-light">
+<nav *ngIf='loggedInUser$ | async' style="position: relative;" class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item active">
@@ -15,7 +15,7 @@
         </li>
       </ul>
       <div  class="logout">
-        <span *ngIf='loggedInUser$ | async'>Hello {{(loggedInUser$ | async).displayName}}!</span>
+        <span>Hello {{(loggedInUser$ | async).displayName}}!</span>
         <button style="margin-left: 15px;" (click)='logout()'>Log out</button>
       </div>
     </div>

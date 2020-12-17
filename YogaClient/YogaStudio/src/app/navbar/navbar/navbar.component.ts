@@ -11,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  loggedInUser$= new Observable<LoginSuccessModel>();
+  loggedInUser$: Observable<LoginSuccessModel>;
 
   constructor(private loginService:LoginService, private router:Router) { }
 
@@ -20,7 +20,8 @@ export class NavbarComponent implements OnInit {
   }
 
   logout(){
-    this.loginService.logout().subscribe((res)=>this.router.navigateByUrl('/account/login'));
+    this.loginService.logout();
+    this.router.navigateByUrl('/account/login');
   }
 
 }

@@ -1,5 +1,5 @@
 import { BehaviorSubject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {LoginSuccessModel} from '../Models/LoginSuccessModel';
 import {LoginDto} from '../Models/LoginDto';
@@ -27,11 +27,18 @@ export class LoginService {
   }
 
   logout(){
-    return this.http.get(this.baseUrl+'logout').pipe(
-      map((res:LoginSuccessModel)=>{
       this.loginSuccessSource.next(null);
       localStorage.removeItem('token');
-    }))
+  }
+
+  getCurrentUser(token){
+    let headers= new HttpHeaders();
+    headers=headers.set('Authorization','Bearer '+token);
+    return this.http.get(this.baseUrl+'current',{headers}).pipe(
+      map((res:LoginSuccessModel)=>{
+        console.log("loginSuccess",res)
+        this.setSourceAndToken(res);
+      }));
   }
 
   register(registerInfo){

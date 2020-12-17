@@ -70,12 +70,8 @@ namespace YogaStudio
             });
 
             var key = Encoding.UTF8.GetBytes(Configuration["AppSettings:JwtSecret"]);
-            services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(x =>
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).
+                AddJwtBearer(x =>
             {
                 x.RequireHttpsMetadata = false;
                 x.SaveToken = false;
@@ -99,7 +95,7 @@ namespace YogaStudio
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
