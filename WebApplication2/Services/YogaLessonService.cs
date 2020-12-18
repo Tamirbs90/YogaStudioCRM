@@ -49,7 +49,6 @@ namespace YogaStudio.Services
 
         public YogaLesson DeleteClass(int classId)
         {
-            
             return repositoriesManager.GetRepository<YogaLesson>().Delete(classId);
         }
 

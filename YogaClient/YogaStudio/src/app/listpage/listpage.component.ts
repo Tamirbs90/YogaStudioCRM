@@ -5,6 +5,7 @@ import { PersonService } from './../Services/person.service';
 import { Component, OnInit, ɵsetCurrentInjector } from '@angular/core';
 import {Person} from '../Models/Person';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-listpage',
@@ -15,6 +16,7 @@ export class ListpageComponent implements OnInit {
 
   persons: Person[];
   debtsList: Person[];
+  selectedMonthId:number;
   selectedMonth: string;
   selectedYear: string;
   classToAdd: ClassParticipated;
@@ -34,30 +36,32 @@ export class ListpageComponent implements OnInit {
     private addPersonService: AddpersonService ) { }
 
   ngOnInit(): void {
-    console.log("persons",this.persons);
   }
+
 
   getPersons(){
       this.personService.getPersons(this.selectedMonth,this.selectedYear).
       subscribe((res:any)=>{
-        this.persons=res.studentsList;
-        this.totalPaid=res.totalPaid;
-        this.totalDebt=res.totalDebt;
-        console.log(this.persons);
-        console.log(this.totalPaid);
-        console.log(this.totalDebt);
+        this.updateProperties(res);
       });
   }
 
+  getCurrentMonthDetails(){
+    this.personService.getCurrentMonthDetails().subscribe((res:any)=>{
+      if(res){
+        console.log('list',res);
+        this.updateProperties(res);
+      }
+    })
+  }
 
-    addClassToStudent(id:number){
+
+    addClassToStudent(studentId:number){
       this.classToAdd= new ClassParticipated(this.ClassDate.value,Number(this.ClassPaid.value),Number(this.ClassDebt.value));
-      console.log(this.classToAdd);
-      this.classesService.addClass(id,this.classToAdd).subscribe((res:Person)=>{
-        console.log(res);
+      this.classesService.addClass(studentId,this.selectedMonthId,this.classToAdd).
+      subscribe((res:Person)=>{
         this.classForm.reset('');
-    
-        this.getPersons();
+         this.getPersons();
       });
     }
 
@@ -65,12 +69,13 @@ export class ListpageComponent implements OnInit {
       this.participationToUpdate= partcipation;
     }
 
-    updateParticipation( id ,date, paid, debt, personId){
-      let updatedParticipation= new ClassParticipated(date,Number(paid),Number(debt));
-      updatedParticipation.id= Number(id);
-      updatedParticipation.personId=personId;
-      console.log("updatedParticipation", updatedParticipation);
-      this.classesService.updateParticipation(updatedParticipation).subscribe(()=>
+    updateParticipation(classParticipated:ClassParticipated, debt, paid){
+      this.participationToUpdate= classParticipated;
+      this.participationToUpdate.debt= Number(debt);
+      this.participationToUpdate.paid=Number(paid);
+
+      console.log("updatedParticipation", this.participationToUpdate);
+      this.classesService.updateParticipation(this.participationToUpdate).subscribe(()=>
       {
         this.getPersons();
       });
@@ -92,15 +97,20 @@ export class ListpageComponent implements OnInit {
 
     }
 
+    updateProperties(res){
+      this.persons=res.studentsList;
+      this.totalPaid=res.totalPaid;
+      this.totalDebt=res.totalDebt;
+      this.selectedMonthId=res.selectedMonthId;
+    }
+
 
     onMonthChanged(month:any){
       this.selectedMonth=month;
-      console.log(this.selectedMonth);
     }
 
     onYearChanged(year:any){
       this.selectedYear=year;
-      console.log(this.selectedYear);
       this.getPersons();
     }
 

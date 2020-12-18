@@ -37,14 +37,12 @@ namespace YogaStudio.Repositories
             return person;
         }
 
-        public Person AddClassToPerson(int id, ClassParticipated classParticipated)
+        public Person AddClassToPerson(int studentId, int monthId, ClassParticipated classParticipated)
         {
-            var personToChange = personContext.Persons.FirstOrDefault(p => p.Id == id);
-            var currentMonth = DateTime.Now.ToString("MMMM");
-            var currentYear = DateTime.Now.Year.ToString();
-            var monthToChange = personContext.Months.
-                Where(m => m.MonthName.Equals(currentMonth) && m.Year.Equals(currentYear)).
-                FirstOrDefault();
+            var personToChange = personContext.Persons.FirstOrDefault(p => p.Id == studentId);
+            //var currentMonth = DateTime.Now.ToString("MMMM");
+            //var currentYear = DateTime.Now.Year.ToString();
+            var monthToChange = personContext.Months.FirstOrDefault(m=>m.Id==monthId);
             personToChange.StudentClasses.Add(classParticipated);
             monthToChange.ClassesInMonth.Add(classParticipated);
             personContext.SaveChanges();
@@ -112,7 +110,10 @@ namespace YogaStudio.Repositories
             }
 
             var totalStudentsList = StudentsPerMonth.Values.AsQueryable().Include(p => p.StudentClasses).ToList();
-            return new { StudentsList = totalStudentsList, TotalPaid = totalPaid, TotalDebt = totalDebt };
+            return new { StudentsList = totalStudentsList, 
+                TotalPaid = totalPaid, 
+                TotalDebt = totalDebt, 
+                SelectedMonthId= selectedMonth.Id};
         }
     }
 }

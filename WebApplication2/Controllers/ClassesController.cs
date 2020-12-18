@@ -26,10 +26,10 @@ namespace YogaStudio.Controllers
             return Ok(classesRepository.ShowClassesWithDebts());
         }
 
-        [HttpPost("addclass/{id}")]
-        public ActionResult<Person> AddClassToStudent(int id, ClassParticipated classToAdd)
+        [HttpPost("addclass/{studentId}/{monthId}")]
+        public ActionResult<Person> AddClassToStudent(int studentId, int monthId, ClassParticipated classToAdd)
         {
-            return Ok(classesRepository.AddClassToStudent(id, classToAdd));
+            return Ok(classesRepository.AddClassToStudent(studentId,monthId, classToAdd));
         }
 
         [HttpPut("update")]

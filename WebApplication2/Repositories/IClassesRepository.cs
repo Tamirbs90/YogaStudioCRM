@@ -8,7 +8,7 @@ namespace YogaStudio.Repositories
 {
     public interface IClassesRepository
     {
-        Person AddClassToStudent(int id, ClassParticipated classParticipated);
+        Person AddClassToStudent(int studentId, int monthId, ClassParticipated classParticipated);
         Person DeleteClassFromStudent(int classId);
 
         ClassParticipated UpdateParticipation(ClassParticipated participation);

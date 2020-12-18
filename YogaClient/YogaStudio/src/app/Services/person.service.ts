@@ -25,6 +25,10 @@ export class PersonService {
       }));
   }
 
+  getCurrentMonthDetails(){
+    return this.http.get(this.baseUrl+'/current');
+  }
+
   getPersons(month,year){
     return this.http.get(this.baseUrl+'?month='+month+'&year='+year);
   }

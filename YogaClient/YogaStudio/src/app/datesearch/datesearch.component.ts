@@ -11,7 +11,7 @@ export class DatesearchComponent implements OnInit {
   months: string[];
   years: string[];
   selectedMonth:string;
-  selectedYear: string;
+  selectedYear:string;
   @Input() totalPaid;
   @Input() totalDebt;
   @Output() monthChanged= new EventEmitter<string>();
@@ -19,14 +19,27 @@ export class DatesearchComponent implements OnInit {
 
 
 
-  constructor(private monthService: MonthService) { }
+  constructor(private monthService: MonthService) {
+   }
 
   ngOnInit(): void {
+    //this.getCurrentMonthAndYear();
     this.getYears();
   }
 
   getYears(){
-    this.monthService.getYears().subscribe((res:string[])=>this.years=res);
+    this.monthService.getYears().subscribe((res:string[])=>{
+      this.years=res;
+
+    })
+  }
+
+  getCurrentMonthAndYear(){
+    var date= new Date();
+    this.selectedYear= date.getFullYear().toString();
+    this.selectedMonth= date.toLocaleString(undefined,{month: 'long'}).toString();
+    console.log('defaultYear',this.selectedYear);
+    console.log('defaultMonth',this.selectedMonth);
   }
 
 

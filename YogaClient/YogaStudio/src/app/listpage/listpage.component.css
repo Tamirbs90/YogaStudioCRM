@@ -5,6 +5,20 @@
     margin-top: 10px;
 }
 
+.showclasses > td{
+    margin-right: -2px;
+    padding: 0px;
+}
+
+.row{
+    display: flex;
+    justify-content: space-between;
+}
+
+.col{
+    margin-right: 1px;
+}
+
 #maintable{
     width: 80%;
     position: relative;

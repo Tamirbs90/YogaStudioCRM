@@ -10,7 +10,7 @@ namespace YogaStudio.Repositories
     {
         List<Person> GetAll();
         Person AddPerson(Person person);
-        Person AddClassToPerson(int id, ClassParticipated classParticipated);
+        Person AddClassToPerson(int studentId, int monthId, ClassParticipated classParticipated);
         Person UpdatePerson(Person person);
         object FindStudentsByMonth(string month, string year);
     }

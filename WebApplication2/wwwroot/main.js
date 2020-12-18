@@ -150,8 +150,8 @@ class ClassesService {
         this.http = http;
         this.baseUrl = '/api/classes/';
     }
-    addClass(id, classParticipated) {
-        return this.http.post(this.baseUrl + 'addclass/' + id, classParticipated);
+    addClass(studentId, monthId, classParticipated) {
+        return this.http.post(this.baseUrl + 'addclass/' + studentId + '/' + monthId, classParticipated);
     }
     deleteClass(classId) {
         return this.http.delete(this.baseUrl + classId);
@@ -248,6 +248,9 @@ class PersonService {
             this.studentsSource.next(res);
             console.log("students", res);
         }));
+    }
+    getCurrentMonthDetails() {
+        return this.http.get(this.baseUrl + '/current');
     }
     getPersons(month, year) {
         return this.http.get(this.baseUrl + '?month=' + month + '&year=' + year);
@@ -923,10 +926,20 @@ class DatesearchComponent {
         this.yearChanged = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
     }
     ngOnInit() {
+        //this.getCurrentMonthAndYear();
         this.getYears();
     }
     getYears() {
-        this.monthService.getYears().subscribe((res) => this.years = res);
+        this.monthService.getYears().subscribe((res) => {
+            this.years = res;
+        });
+    }
+    getCurrentMonthAndYear() {
+        var date = new Date();
+        this.selectedYear = date.getFullYear().toString();
+        this.selectedMonth = date.toLocaleString(undefined, { month: 'long' }).toString();
+        console.log('defaultYear', this.selectedYear);
+        console.log('defaultMonth', this.selectedMonth);
     }
     getMonths() {
         this.monthService.getMonths(this.selectedYear).subscribe((res) => this.months = res);
@@ -940,7 +953,7 @@ class DatesearchComponent {
     }
 }
 DatesearchComponent.ɵfac = function DatesearchComponent_Factory(t) { return new (t || DatesearchComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_Services_month_service__WEBPACK_IMPORTED_MODULE_1__["MonthService"])); };
-DatesearchComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: DatesearchComponent, selectors: [["app-datesearch"]], inputs: { totalPaid: "totalPaid", totalDebt: "totalDebt" }, outputs: { monthChanged: "monthChanged", yearChanged: "yearChanged" }, decls: 14, vars: 6, consts: [[1, "monthyear", 2, "padding-top", "30px", "padding-left", "100px", "padding-bottom", "30px"], [1, "selectmonth", 2, "margin-top", "12px"], ["id", "inputGroupSelect02", 1, "custom-select", 3, "ngModel", "ngModelChange", "change"], [3, "value", 4, "ngFor", "ngForOf"], ["id", "inputGroupSelect03", 1, "custom-select", 2, "margin-left", "20px", 3, "ngModel", "ngModelChange"], ["type", "button", 1, "btn", "btn-secondary", 2, "margin-left", "20px", 3, "click"], [1, "paidlbl", 2, "margin-left", "300px"], [1, "debtlbl", 2, "margin-left", "100px"], [3, "value"]], template: function DatesearchComponent_Template(rf, ctx) { if (rf & 1) {
+DatesearchComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: DatesearchComponent, selectors: [["app-datesearch"]], inputs: { totalPaid: "totalPaid", totalDebt: "totalDebt" }, outputs: { monthChanged: "monthChanged", yearChanged: "yearChanged" }, decls: 14, vars: 6, consts: [[1, "monthyear", 2, "padding-top", "30px", "padding-left", "100px", "padding-bottom", "30px"], [1, "selectmonth", 2, "margin-top", "12px"], ["id", "inputGroupSelect02", 1, "custom-select", 3, "ngModel", "ngModelChange", "change"], [3, "value", 4, "ngFor", "ngForOf"], ["id", "inputGroupSelect03", 1, "custom-select", 2, "margin-left", "20px", 3, "ngModel", "ngModelChange"], ["type", "button", 1, "btn", "btn-secondary", 2, "margin-left", "25px", 3, "click"], [1, "paidlbl", 2, "margin-left", "10%"], [1, "debtlbl", 2, "margin-left", "10%"], [3, "value"]], template: function DatesearchComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "label");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "Select month");
@@ -1197,25 +1210,21 @@ function ListpageComponent_tr_15_div_14_tr_11_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipe"](3, "date");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](4, "td");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](5, "div", 15);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](6, "input", 16, 17);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](5, "input", 15, 16);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](7, "td");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](8, "input", 15, 17);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](10, "td");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](11, "button", 18);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function ListpageComponent_tr_15_div_14_tr_11_Template_button_click_11_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r9); const class_r5 = ctx.$implicit; const _r7 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵreference"](9); const _r6 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵreference"](6); const ctx_r8 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](3); return ctx_r8.updateParticipation(class_r5, _r7.value, _r6.value); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](12, "Update");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](8, "td");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](9, "div", 15);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](10, "input", 16, 18);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](12, "td");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](13, "button", 19);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function ListpageComponent_tr_15_div_14_tr_11_Template_button_click_13_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r9); const class_r5 = ctx.$implicit; const _r6 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵreference"](7); const _r7 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵreference"](11); const ctx_r8 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](3); return ctx_r8.updateParticipation(class_r5.id, class_r5.date, _r6.value, _r7.value, class_r5.personId); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](14, "Update");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](15, "td");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](16, "button", 20);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function ListpageComponent_tr_15_div_14_tr_11_Template_button_click_16_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r9); const class_r5 = ctx.$implicit; const ctx_r10 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](3); return ctx_r10.deleteClassFromStudent(class_r5.id); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](17, "X");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](13, "td");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](14, "button", 19);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function ListpageComponent_tr_15_div_14_tr_11_Template_button_click_14_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r9); const class_r5 = ctx.$implicit; const ctx_r10 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](3); return ctx_r10.deleteClassFromStudent(class_r5.id); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](15, "X");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
@@ -1223,9 +1232,9 @@ function ListpageComponent_tr_15_div_14_tr_11_Template(rf, ctx) { if (rf & 1) {
     const class_r5 = ctx.$implicit;
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipeBind2"](3, 3, class_r5.date, "d/M/yy"));
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](4);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](3);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpropertyInterpolate"]("value", class_r5.paid);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](4);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](3);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpropertyInterpolate"]("value", class_r5.debt);
 } }
 function ListpageComponent_tr_15_div_14_Template(rf, ctx) { if (rf & 1) {
@@ -1245,7 +1254,7 @@ function ListpageComponent_tr_15_div_14_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](10, "tbody");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](11, ListpageComponent_tr_15_div_14_tr_11_Template, 18, 6, "tr", 4);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](11, ListpageComponent_tr_15_div_14_tr_11_Template, 16, 6, "tr", 4);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
@@ -1256,17 +1265,17 @@ function ListpageComponent_tr_15_div_14_Template(rf, ctx) { if (rf & 1) {
 } }
 function ListpageComponent_tr_15_div_18_Template(rf, ctx) { if (rf & 1) {
     const _r14 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 21);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "form", 22);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 20);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "form", 21);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("ngSubmit", function ListpageComponent_tr_15_div_18_Template_form_ngSubmit_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r14); const person_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]().$implicit; const ctx_r12 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r12.addClassToStudent(person_r1.id); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](2, "div", 23);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](3, "div", 24);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](4, "input", 25);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](2, "div", 22);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](3, "div", 23);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](4, "input", 24);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](5, "div", 15);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](5, "div", 25);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](6, "input", 26);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](7, "div", 15);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](7, "div", 25);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](8, "input", 27);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](9, "div", 28);
@@ -1353,24 +1362,25 @@ class ListpageComponent {
         });
     }
     ngOnInit() {
-        console.log("persons", this.persons);
     }
     getPersons() {
         this.personService.getPersons(this.selectedMonth, this.selectedYear).
             subscribe((res) => {
-            this.persons = res.studentsList;
-            this.totalPaid = res.totalPaid;
-            this.totalDebt = res.totalDebt;
-            console.log(this.persons);
-            console.log(this.totalPaid);
-            console.log(this.totalDebt);
+            this.updateProperties(res);
         });
     }
-    addClassToStudent(id) {
+    getCurrentMonthDetails() {
+        this.personService.getCurrentMonthDetails().subscribe((res) => {
+            if (res) {
+                console.log('list', res);
+                this.updateProperties(res);
+            }
+        });
+    }
+    addClassToStudent(studentId) {
         this.classToAdd = new _Models_ClassParticipated__WEBPACK_IMPORTED_MODULE_0__["ClassParticipated"](this.ClassDate.value, Number(this.ClassPaid.value), Number(this.ClassDebt.value));
-        console.log(this.classToAdd);
-        this.classesService.addClass(id, this.classToAdd).subscribe((res) => {
-            console.log(res);
+        this.classesService.addClass(studentId, this.selectedMonthId, this.classToAdd).
+            subscribe((res) => {
             this.classForm.reset('');
             this.getPersons();
         });
@@ -1378,12 +1388,12 @@ class ListpageComponent {
     setParticipationToUpdate(partcipation) {
         this.participationToUpdate = partcipation;
     }
-    updateParticipation(id, date, paid, debt, personId) {
-        let updatedParticipation = new _Models_ClassParticipated__WEBPACK_IMPORTED_MODULE_0__["ClassParticipated"](date, Number(paid), Number(debt));
-        updatedParticipation.id = Number(id);
-        updatedParticipation.personId = personId;
-        console.log("updatedParticipation", updatedParticipation);
-        this.classesService.updateParticipation(updatedParticipation).subscribe(() => {
+    updateParticipation(classParticipated, debt, paid) {
+        this.participationToUpdate = classParticipated;
+        this.participationToUpdate.debt = Number(debt);
+        this.participationToUpdate.paid = Number(paid);
+        console.log("updatedParticipation", this.participationToUpdate);
+        this.classesService.updateParticipation(this.participationToUpdate).subscribe(() => {
             this.getPersons();
         });
     }
@@ -1400,13 +1410,17 @@ class ListpageComponent {
         this.addPersonService.personToUpdate = personToEdit;
         console.log(this.addPersonService.personToUpdate);
     }
+    updateProperties(res) {
+        this.persons = res.studentsList;
+        this.totalPaid = res.totalPaid;
+        this.totalDebt = res.totalDebt;
+        this.selectedMonthId = res.selectedMonthId;
+    }
     onMonthChanged(month) {
         this.selectedMonth = month;
-        console.log(this.selectedMonth);
     }
     onYearChanged(year) {
         this.selectedYear = year;
-        console.log(this.selectedYear);
         this.getPersons();
     }
     setShowClassesId(id) {
@@ -1431,7 +1445,7 @@ class ListpageComponent {
     get ClassDebt() { return this.classForm.get("debt"); }
 }
 ListpageComponent.ɵfac = function ListpageComponent_Factory(t) { return new (t || ListpageComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_Services_person_service__WEBPACK_IMPORTED_MODULE_3__["PersonService"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_Services_classes_service__WEBPACK_IMPORTED_MODULE_4__["ClassesService"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_Services_addperson_service__WEBPACK_IMPORTED_MODULE_5__["AddpersonService"])); };
-ListpageComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({ type: ListpageComponent, selectors: [["app-listpage"]], decls: 16, vars: 3, consts: [[3, "totalPaid", "totalDebt", "yearChanged", "monthChanged"], ["id", "maintable", 1, "table", 2, "margin-top", "10px"], [1, "thead-dark"], ["scope", "col"], [4, "ngFor", "ngForOf"], ["scope", "row"], [1, "classes"], ["id", "showclassesbtn", "type", "button", 1, "btn", "btn-primary", 3, "click"], ["class", "showclasses", 4, "ngIf"], [1, "addclass"], ["type", "button", 1, "btn", "btn-primary", 3, "click"], ["class", "addclassform", 4, "ngIf"], ["routerLink", "/add", "type", "button", 1, "btn", "btn-primary", 3, "click"], [1, "showclasses"], [1, "table"], [1, "col", 2, "padding-left", "0px", "padding-right", "2px"], ["type", "text", 1, "form-control", 2, "width", "80px", 3, "value"], ["paid", ""], ["debt", ""], ["type", "button", 1, "btn", "btn-secondary", 3, "click"], ["type", "button", 1, "btn", "btn-secondary", 2, "size", "6px", "background-color", "red", 3, "click"], [1, "addclassform"], [3, "formGroup", "ngSubmit"], [1, "row"], [1, "col"], ["type", "date", "value", "", "formControlName", "date", 1, "form-control"], ["type", "text", "placeholder", "Paid", "formControlName", "paid", 1, "form-control", 2, "width", "80px"], ["type", "text", "placeholder", "Debt", "formControlName", "debt", 1, "form-control", 2, "width", "80px"], [1, "col", 2, "padding-left", "0px"], ["type", "submit", 1, "btn", "btn-secondary", 3, "disabled"]], template: function ListpageComponent_Template(rf, ctx) { if (rf & 1) {
+ListpageComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({ type: ListpageComponent, selectors: [["app-listpage"]], decls: 16, vars: 3, consts: [[3, "totalPaid", "totalDebt", "yearChanged", "monthChanged"], ["id", "maintable", 1, "table", 2, "margin-top", "10px"], [1, "thead-dark"], ["scope", "col"], [4, "ngFor", "ngForOf"], ["scope", "row"], [1, "classes"], ["id", "showclassesbtn", "type", "button", 1, "btn", "btn-primary", 3, "click"], ["class", "showclasses", 4, "ngIf"], [1, "addclass"], ["type", "button", 1, "btn", "btn-primary", 3, "click"], ["class", "addclassform", 4, "ngIf"], ["routerLink", "/add", "type", "button", 1, "btn", "btn-primary", 3, "click"], [1, "showclasses"], [1, "table"], ["type", "text", 1, "form-control", 2, "width", "80px", 3, "value"], ["paid", ""], ["debt", ""], ["type", "button", 1, "btn", "btn-secondary", 3, "click"], ["type", "button", 1, "btn", "btn-secondary", 2, "size", "6px", "background-color", "red", 3, "click"], [1, "addclassform"], [3, "formGroup", "ngSubmit"], [1, "row"], [1, "col"], ["type", "date", "value", "", "formControlName", "date", 1, "form-control"], [1, "col", 2, "padding-left", "0px", "padding-right", "2px"], ["type", "text", "placeholder", "Paid", "formControlName", "paid", 1, "form-control", 2, "width", "80px"], ["type", "text", "placeholder", "Debt", "formControlName", "debt", 1, "form-control", 2, "width", "80px"], [1, "col", 2, "padding-left", "0px"], ["type", "submit", 1, "btn", "btn-secondary", 3, "disabled"]], template: function ListpageComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "app-datesearch", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("yearChanged", function ListpageComponent_Template_app_datesearch_yearChanged_0_listener($event) { return ctx.onYearChanged($event); })("monthChanged", function ListpageComponent_Template_app_datesearch_monthChanged_0_listener($event) { return ctx.onMonthChanged($event); });
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
@@ -1463,7 +1477,7 @@ ListpageComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefine
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("totalPaid", ctx.totalPaid)("totalDebt", ctx.totalDebt);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](15);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx.persons);
-    } }, directives: [_datesearch_datesearch_component__WEBPACK_IMPORTED_MODULE_6__["DatesearchComponent"], _angular_common__WEBPACK_IMPORTED_MODULE_7__["NgForOf"], _angular_common__WEBPACK_IMPORTED_MODULE_7__["NgIf"], _angular_router__WEBPACK_IMPORTED_MODULE_8__["RouterLink"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroupDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControlName"]], pipes: [_angular_common__WEBPACK_IMPORTED_MODULE_7__["DatePipe"]], styles: [".addclassform[_ngcontent-%COMP%], .showclasses[_ngcontent-%COMP%]{\r\n\r\n    margin-top: 10px;\r\n}\r\n\r\n#maintable[_ngcontent-%COMP%]{\r\n    width: 80%;\r\n    position: relative;\r\n    left: 100px;\r\n}\r\n\r\n.table[_ngcontent-%COMP%]   .thead-dark[_ngcontent-%COMP%]   th[_ngcontent-%COMP%] {\r\n    color: black;\r\n    background-color:white;\r\n    border-color: #454d55;\r\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbGlzdHBhZ2UvbGlzdHBhZ2UuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUVBOztJQUVJLGdCQUFnQjtBQUNwQjs7QUFFQTtJQUNJLFVBQVU7SUFDVixrQkFBa0I7SUFDbEIsV0FBVztBQUNmOztBQUVBO0lBQ0ksWUFBWTtJQUNaLHNCQUFzQjtJQUN0QixxQkFBcUI7QUFDekIiLCJmaWxlIjoic3JjL2FwcC9saXN0cGFnZS9saXN0cGFnZS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiXHJcblxyXG4uYWRkY2xhc3Nmb3JtLCAuc2hvd2NsYXNzZXN7XHJcblxyXG4gICAgbWFyZ2luLXRvcDogMTBweDtcclxufVxyXG5cclxuI21haW50YWJsZXtcclxuICAgIHdpZHRoOiA4MCU7XHJcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XHJcbiAgICBsZWZ0OiAxMDBweDtcclxufVxyXG5cclxuLnRhYmxlIC50aGVhZC1kYXJrIHRoIHtcclxuICAgIGNvbG9yOiBibGFjaztcclxuICAgIGJhY2tncm91bmQtY29sb3I6d2hpdGU7XHJcbiAgICBib3JkZXItY29sb3I6ICM0NTRkNTU7XHJcbn1cclxuIl19 */"] });
+    } }, directives: [_datesearch_datesearch_component__WEBPACK_IMPORTED_MODULE_6__["DatesearchComponent"], _angular_common__WEBPACK_IMPORTED_MODULE_7__["NgForOf"], _angular_common__WEBPACK_IMPORTED_MODULE_7__["NgIf"], _angular_router__WEBPACK_IMPORTED_MODULE_8__["RouterLink"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroupDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControlName"]], pipes: [_angular_common__WEBPACK_IMPORTED_MODULE_7__["DatePipe"]], styles: [".addclassform[_ngcontent-%COMP%], .showclasses[_ngcontent-%COMP%]{\r\n\r\n    margin-top: 10px;\r\n}\r\n\r\n.showclasses[_ngcontent-%COMP%]    > td[_ngcontent-%COMP%]{\r\n    margin-right: -2px;\r\n    padding: 0px;\r\n}\r\n\r\n.row[_ngcontent-%COMP%]{\r\n    display: flex;\r\n    justify-content: space-between;\r\n}\r\n\r\n.col[_ngcontent-%COMP%]{\r\n    margin-right: 1px;\r\n}\r\n\r\n#maintable[_ngcontent-%COMP%]{\r\n    width: 80%;\r\n    position: relative;\r\n    left: 100px;\r\n}\r\n\r\n.table[_ngcontent-%COMP%]   .thead-dark[_ngcontent-%COMP%]   th[_ngcontent-%COMP%] {\r\n    color: black;\r\n    background-color:white;\r\n    border-color: #454d55;\r\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbGlzdHBhZ2UvbGlzdHBhZ2UuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUVBOztJQUVJLGdCQUFnQjtBQUNwQjs7QUFFQTtJQUNJLGtCQUFrQjtJQUNsQixZQUFZO0FBQ2hCOztBQUVBO0lBQ0ksYUFBYTtJQUNiLDhCQUE4QjtBQUNsQzs7QUFFQTtJQUNJLGlCQUFpQjtBQUNyQjs7QUFFQTtJQUNJLFVBQVU7SUFDVixrQkFBa0I7SUFDbEIsV0FBVztBQUNmOztBQUVBO0lBQ0ksWUFBWTtJQUNaLHNCQUFzQjtJQUN0QixxQkFBcUI7QUFDekIiLCJmaWxlIjoic3JjL2FwcC9saXN0cGFnZS9saXN0cGFnZS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiXHJcblxyXG4uYWRkY2xhc3Nmb3JtLCAuc2hvd2NsYXNzZXN7XHJcblxyXG4gICAgbWFyZ2luLXRvcDogMTBweDtcclxufVxyXG5cclxuLnNob3djbGFzc2VzID4gdGR7XHJcbiAgICBtYXJnaW4tcmlnaHQ6IC0ycHg7XHJcbiAgICBwYWRkaW5nOiAwcHg7XHJcbn1cclxuXHJcbi5yb3d7XHJcbiAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xyXG59XHJcblxyXG4uY29se1xyXG4gICAgbWFyZ2luLXJpZ2h0OiAxcHg7XHJcbn1cclxuXHJcbiNtYWludGFibGV7XHJcbiAgICB3aWR0aDogODAlO1xyXG4gICAgcG9zaXRpb246IHJlbGF0aXZlO1xyXG4gICAgbGVmdDogMTAwcHg7XHJcbn1cclxuXHJcbi50YWJsZSAudGhlYWQtZGFyayB0aCB7XHJcbiAgICBjb2xvcjogYmxhY2s7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOndoaXRlO1xyXG4gICAgYm9yZGVyLWNvbG9yOiAjNDU0ZDU1O1xyXG59XHJcbiJdfQ== */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](ListpageComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"],
         args: [{

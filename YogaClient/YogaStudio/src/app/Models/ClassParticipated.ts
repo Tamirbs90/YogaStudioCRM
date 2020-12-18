@@ -7,6 +7,7 @@ export class ClassParticipated{
     debt:number;
     personId:number;
     person:Person;
+    yogaLessonId:number;
 
     constructor(date:string,paid:number, debt:number) 
     {

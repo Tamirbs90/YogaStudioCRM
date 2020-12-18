@@ -21,8 +21,8 @@ namespace YogaStudio.Models
 
         public int PersonId { get; set; }
 
-        public YogaLesson YogaLesson { get; set; }
-        public int YogaLessonId { get; set; }
+        public YogaLesson? YogaLesson { get; set; }
+        public int? YogaLessonId { get; set; }
 
     }
 }

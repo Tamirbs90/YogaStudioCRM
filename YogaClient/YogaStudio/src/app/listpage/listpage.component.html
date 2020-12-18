@@ -1,4 +1,6 @@
-<app-datesearch [totalPaid]='totalPaid' [totalDebt]='totalDebt' (yearChanged)='onYearChanged($event)' (monthChanged)='onMonthChanged($event)'></app-datesearch>
+<app-datesearch 
+[totalPaid]='totalPaid' [totalDebt]='totalDebt' 
+(yearChanged)='onYearChanged($event)' (monthChanged)='onMonthChanged($event)'></app-datesearch>
 
 <table class="table"  id='maintable' style="margin-top: 10px;">
     <thead class="thead-dark">
@@ -30,23 +32,26 @@
                         </thead>
                         <tbody>
                           <tr *ngFor='let class of person.studentClasses'>
-                            <td>{{class.date | date: 'd/M/yy'}}</td>
-                            <td>
-                              <div class="col" style="padding-left: 0px; padding-right: 2px;">
+  
+                              <td>{{class.date | date: 'd/M/yy'}}</td>
+                              
+                              <td>
+                      
                                 <input type="text"  #paid class="form-control"  style="width: 80px;" value='{{class.paid}}' >
-                              </div>
+  
                             </td>
                             <td>
-                              <div class="col" style="padding-left: 0px; padding-right: 2px;">
+                          
                                 <input type="text" #debt class="form-control"  style="width: 80px;" value='{{class.debt}}' >
-                              </div>
+                        
                             </td>
                             <td>
-                              <button class="btn btn-secondary" type="button" (click)='updateParticipation(class.id, class.date,paid.value,debt.value,class.personId)' >Update</button>
+                              <button class="btn btn-secondary" type="button" (click)='updateParticipation(class,debt.value, paid.value)' >Update</button>
                             </td>
                           
                             <td><button class="btn btn-secondary" type="button" 
-                              (click)='deleteClassFromStudent(class.id)' style="size: 6px; background-color: red;">X</button></td>
+                              (click)='deleteClassFromStudent(class.id)' style="size: 6px; background-color: red;">X</button>
+                            </td>
                         
                           </tr> 
 

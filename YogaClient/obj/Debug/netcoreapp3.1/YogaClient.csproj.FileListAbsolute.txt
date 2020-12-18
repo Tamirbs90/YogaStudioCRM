@@ -66,3 +66,4 @@ C:\Users\tamir\OneDrive\Documents\GitHub\YogaStudioCRMServer\YogaClient\obj\Debu
 C:\Users\tamir\OneDrive\Documents\GitHub\YogaStudioCRMServer\YogaClient\obj\Debug\netcoreapp3.1\YogaClient.csproj.CoreCompileInputs.cache
 C:\Users\tamir\OneDrive\Documents\GitHub\YogaStudioCRMServer\YogaClient\obj\Debug\netcoreapp3.1\staticwebassets\YogaClient.StaticWebAssets.Manifest.cache
 C:\Users\tamir\OneDrive\Documents\GitHub\YogaStudioCRMServer\YogaClient\obj\Debug\netcoreapp3.1\staticwebassets\YogaClient.StaticWebAssets.xml
+C:\Users\tamir\OneDrive\Documents\GitHub\YogaStudioCRMServer\YogaClient\bin\Debug\netcoreapp3.1\package-lock.json

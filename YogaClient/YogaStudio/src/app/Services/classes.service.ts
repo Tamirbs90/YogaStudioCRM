@@ -13,9 +13,9 @@ export class ClassesService {
 
   constructor(private http: HttpClient) { }
 
-  addClass(id:number,classParticipated:ClassParticipated) : 
+  addClass(studentId:number,monthId:number,classParticipated:ClassParticipated) : 
   Observable<Person>{
-    return this.http.post<Person>(this.baseUrl+'addclass/'+id, classParticipated);
+    return this.http.post<Person>(this.baseUrl+'addclass/'+studentId+'/'+monthId, classParticipated);
   }
 
   deleteClass(classId: number) : Observable<Person>{

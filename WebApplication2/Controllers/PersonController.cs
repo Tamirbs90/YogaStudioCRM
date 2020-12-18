@@ -43,9 +43,9 @@ namespace YogaStudio.Controllers
         }
 
         [HttpPost("addclass/{id}")]
-        public ActionResult<Person> AddClassToPerson(int id, ClassParticipated classParticipated)
+        public ActionResult<Person> AddClassToPerson(int studentId, int monthId, ClassParticipated classParticipated)
         {
-            return Ok(personRepository.AddClassToPerson(id, classParticipated));
+            return Ok(personRepository.AddClassToPerson(studentId, monthId, classParticipated));
         }
 
         [HttpPut]
@@ -61,5 +61,16 @@ namespace YogaStudio.Controllers
 
             return Ok(personsList);
         }
+
+        [HttpGet("current")]
+        public ActionResult<object> GetDetailsOfCurrentMonth()
+        {
+            var currentMonth = DateTime.Now.ToString("MMMM");
+            var currentYear = DateTime.Now.Year.ToString();
+            var personsList = personRepository.FindStudentsByMonth(currentMonth, currentYear);
+
+            return Ok(personsList);
+        }
+
     }
 }

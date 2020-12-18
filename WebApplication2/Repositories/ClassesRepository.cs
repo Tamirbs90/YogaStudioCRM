@@ -17,14 +17,12 @@ namespace YogaStudio.Repositories
             this.personContext = personContext;
         }
 
-        public Person AddClassToStudent(int id, ClassParticipated classParticipated)
+        public Person AddClassToStudent(int studentId, int monthId, ClassParticipated classParticipated)
         {
-            var personToChange = personContext.Persons.FirstOrDefault(p => p.Id == id);
-            var currentMonth = DateTime.Now.ToString("MMMM");
-            var currentYear = DateTime.Now.Year.ToString();
-            var monthToChange = personContext.Months.
-                Where(m => m.MonthName.Equals(currentMonth) && m.Year.Equals(currentYear)).
-                FirstOrDefault();
+            var personToChange = personContext.Persons.FirstOrDefault(p => p.Id == studentId);
+            //var currentMonth = DateTime.Now.ToString("MMMM");
+            //var currentYear = DateTime.Now.Year.ToString();
+            var monthToChange = personContext.Months.FirstOrDefault(m => m.Id == monthId);
             personToChange.StudentClasses.Add(classParticipated);
             monthToChange.ClassesInMonth.Add(classParticipated);
             personToChange.TotalPaid += classParticipated.Paid;
